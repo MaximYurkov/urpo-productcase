@@ -6,14 +6,17 @@ from app.tools.memory_tool import save_run_to_memory
 from app.tools.observability_tool import log_run_start, log_run_end
 
 
-def save_report(report_text: str):
+def save_report(report_text: str, trace_id: str):
     reports_dir = Path("reports")
     reports_dir.mkdir(exist_ok=True)
 
-    report_path = reports_dir / "generated_report.md"
-    report_path.write_text(report_text, encoding="utf-8")
+    latest_report_path = reports_dir / "generated_report.md"
+    unique_report_path = reports_dir / f"report_{trace_id}.md"
 
-    return report_path
+    latest_report_path.write_text(report_text, encoding="utf-8")
+    unique_report_path.write_text(report_text, encoding="utf-8")
+
+    return latest_report_path, unique_report_path
 
 
 def main():
@@ -45,7 +48,10 @@ def main():
     try:
         result = graph.invoke(initial_state)
 
-        report_path = save_report(result["final_report"])
+        latest_report_path, unique_report_path = save_report(
+            report_text=result["final_report"],
+            trace_id=result["trace_id"],
+            )
 
         save_run_to_memory(
             trace_id=result["trace_id"],
@@ -61,7 +67,8 @@ def main():
 
         print()
         print("Готово")
-        print(f"Финальный отчёт сохранён в файл: {report_path}")
+        print(f"Последний отчёт сохранён в файл: {latest_report_path}")
+        print(f"Отдельный отчёт запуска сохранён в файл: {unique_report_path}")
         print("Запуск сохранён в SQLite-память: app/memory/memory.db")
         print("Логи сохранены в: logs/run_logs.jsonl")
 
