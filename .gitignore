@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+
+app/memory/memory.db
+logs/
+reports/generated_report.md
+
+.vscode/
+.idea/
+.DS_Store
