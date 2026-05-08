@@ -7,9 +7,11 @@ from app.agents.market_analyst import run_market_analyst
 from app.agents.product_manager import run_product_manager
 from app.agents.critic import run_critic
 from app.agents.report_writer import run_report_writer
+from app.tools.observability_tool import run_with_observability
 
 
 class AgentState(TypedDict):
+    trace_id: str
     user_idea: str
     plan: str
     market_analysis: str
@@ -20,49 +22,76 @@ class AgentState(TypedDict):
 
 def planner_node(state: AgentState) -> AgentState:
     print("Planner Agent запущен")
-    state["plan"] = run_planner(state["user_idea"])
+
+    state["plan"] = run_with_observability(
+        state["trace_id"],
+        "Planner Agent",
+        run_planner,
+        state["user_idea"],
+    )
+
     return state
 
 
 def market_analyst_node(state: AgentState) -> AgentState:
     print("Market Analyst Agent запущен")
-    state["market_analysis"] = run_market_analyst(
-        user_idea=state["user_idea"],
-        plan=state["plan"],
+
+    state["market_analysis"] = run_with_observability(
+        state["trace_id"],
+        "Market Analyst Agent",
+        run_market_analyst,
+        state["user_idea"],
+        state["plan"],
     )
+
     return state
 
 
 def product_manager_node(state: AgentState) -> AgentState:
     print("Product Manager Agent запущен")
-    state["product_analysis"] = run_product_manager(
-        user_idea=state["user_idea"],
-        plan=state["plan"],
-        market_analysis=state["market_analysis"],
+
+    state["product_analysis"] = run_with_observability(
+        state["trace_id"],
+        "Product Manager Agent",
+        run_product_manager,
+        state["user_idea"],
+        state["plan"],
+        state["market_analysis"],
     )
+
     return state
 
 
 def critic_node(state: AgentState) -> AgentState:
     print("Critic Agent запущен")
-    state["critic_review"] = run_critic(
-        user_idea=state["user_idea"],
-        plan=state["plan"],
-        market_analysis=state["market_analysis"],
-        product_analysis=state["product_analysis"],
+
+    state["critic_review"] = run_with_observability(
+        state["trace_id"],
+        "Critic Agent",
+        run_critic,
+        state["user_idea"],
+        state["plan"],
+        state["market_analysis"],
+        state["product_analysis"],
     )
+
     return state
 
 
 def report_writer_node(state: AgentState) -> AgentState:
     print("Report Writer Agent запущен")
-    state["final_report"] = run_report_writer(
-        user_idea=state["user_idea"],
-        plan=state["plan"],
-        market_analysis=state["market_analysis"],
-        product_analysis=state["product_analysis"],
-        critic_review=state["critic_review"],
+
+    state["final_report"] = run_with_observability(
+        state["trace_id"],
+        "Report Writer Agent",
+        run_report_writer,
+        state["user_idea"],
+        state["plan"],
+        state["market_analysis"],
+        state["product_analysis"],
+        state["critic_review"],
     )
+
     return state
 
 
