@@ -10,3 +10,4 @@ reports/generated_report.md
 .vscode/
 .idea/
 .DS_Store
+reports/*.md
