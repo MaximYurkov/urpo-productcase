@@ -2,25 +2,16 @@
 
 ```mermaid
 flowchart TB
-    user["Пользователь"]
-
-    cli["CLI Application<br/>app/main.py"]
-
-    graph["LangGraph Workflow<br/>app/graph.py"]
-
-    agents["Agents<br/>app/agents"]
-
-    skills["Markdown Skills<br/>app/skills"]
-
-    tools["Tools<br/>memory / logs / skill loader"]
-
-    ollama["Ollama Container<br/>qwen2.5:1.5b"]
-
-    reports["Reports<br/>reports"]
-
-    memory["SQLite DB<br/>app/memory/memory.db"]
-
-    logs["JSONL Logs<br/>logs/run_logs.jsonl"]
+    user[User]
+    cli[CLI Application]
+    graph[LangGraph Workflow]
+    agents[Agents]
+    skills[Markdown Skills]
+    tools[Tools]
+    ollama[Ollama Container]
+    reports[Reports]
+    memory[SQLite Database]
+    logs[JSONL Logs]
 
     user --> cli
     cli --> graph
