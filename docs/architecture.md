@@ -80,7 +80,7 @@ Ollama поднят через Docker Compose и доступен по адре�
 
 Основная модель MVP:
 
-`qwen2.5:1.5b`
+`gemma2:2b`
 
 ### 3.5 Skills
 

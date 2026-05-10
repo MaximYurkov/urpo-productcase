@@ -51,7 +51,7 @@ Workflow реализован через `LangGraph`.
 - LangGraph
 - LangChain Ollama
 - Ollama
-- qwen2.5:1.5b
+- gemma2:2b
 - Docker Compose
 - SQLite
 - Markdown skills
@@ -86,7 +86,7 @@ Workflow реализован через `LangGraph`.
 
 ## Ограничения MVP
 
-- Используется лёгкая локальная модель `qwen2.5:1.5b`.
+- Используется лёгкая локальная модель `gemma2:2b`.
 - Качество текста может быть нестабильным.
 - Рыночные выводы являются гипотезами, так как веб-поиск не подключён.
 - Observability реализована через локальные JSONL-логи.

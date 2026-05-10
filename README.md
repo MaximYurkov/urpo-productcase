@@ -39,7 +39,7 @@ User Input → Planner → Market Analyst → Product Manager → Critic → Rep
 - LangGraph
 - LangChain Ollama
 - Ollama
-- qwen2.5:1.5b
+- gemma2:2b
 - Docker Compose
 - SQLite
 - Markdown skills
@@ -71,7 +71,7 @@ docker ps
 
 Скачать модель, если её ещё нет:
 
-docker exec -it urpo-ollama ollama pull qwen2.5:1.5b
+docker exec -it urpo-ollama ollama pull gemma2:2b
 
 ## Запуск системы
 
@@ -116,7 +116,7 @@ docs/ — technical docs
 
 ## Ограничения MVP
 
-- используется лёгкая локальная модель qwen2.5:1.5b;
+- используется лёгкая локальная модель gemma2:2b;
 - качество текста может быть нестабильным;
 - веб-поиск не подключён;
 - рыночный анализ является гипотезой;

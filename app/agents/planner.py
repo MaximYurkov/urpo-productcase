@@ -4,7 +4,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from app.tools.skill_loader import load_skill
 
 
-MODEL_NAME = "qwen2.5:1.5b"
+MODEL_NAME = "gemma2:2b"
 
 
 def get_llm():
